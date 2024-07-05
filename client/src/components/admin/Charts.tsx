@@ -12,8 +12,8 @@ import {
   PointElement,
   LineElement,
   Filler,
-} from "chart.js";
-import { Bar, Doughnut, Line, Pie } from "react-chartjs-2";
+} from 'chart.js';
+import { Bar, Doughnut, Line, Pie } from 'react-chartjs-2';
 
 ChartJS.register(
   CategoryScale,
@@ -28,7 +28,7 @@ ChartJS.register(
   Filler
 );
 
-const months = ["January", "February", "March", "April", "May", "June", "July"];
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
 interface BarChartProps {
   horizontal?: boolean;
@@ -51,9 +51,9 @@ export const BarChart = ({
   horizontal = false,
   labels = months,
 }: BarChartProps) => {
-  const options: ChartOptions<"bar"> = {
+  const options: ChartOptions<'bar'> = {
     responsive: true,
-    indexAxis: horizontal ? "y" : "x",
+    indexAxis: horizontal ? 'y' : 'x',
     plugins: {
       legend: {
         display: false,
@@ -78,14 +78,14 @@ export const BarChart = ({
     },
   };
 
-  const data: ChartData<"bar", number[], string> = {
+  const data: ChartData<'bar', number[], string> = {
     labels,
     datasets: [
       {
         label: title_1,
         data: data_1,
         backgroundColor: bgColor_1,
-        barThickness: "flex",
+        barThickness: 'flex',
         barPercentage: 1,
         categoryPercentage: 0.4,
       },
@@ -93,14 +93,14 @@ export const BarChart = ({
         label: title_2,
         data: data_2,
         backgroundColor: bgColor_2,
-        barThickness: "flex",
+        barThickness: 'flex',
         barPercentage: 1,
         categoryPercentage: 0.4,
       },
     ],
   };
 
-  return <Bar width={horizontal ? "200%" : ""} options={options} data={data} />;
+  return <Bar width={horizontal ? '200%' : ''} options={options} data={data} />;
 };
 
 interface DoughnutChartProps {
@@ -120,7 +120,7 @@ export const DoughnutChart = ({
   legends = true,
   offset,
 }: DoughnutChartProps) => {
-  const doughnutData: ChartData<"doughnut", number[], string> = {
+  const doughnutData: ChartData<'doughnut', number[], string> = {
     labels,
     datasets: [
       {
@@ -132,12 +132,12 @@ export const DoughnutChart = ({
     ],
   };
 
-  const doughnutOptions: ChartOptions<"doughnut"> = {
+  const doughnutOptions: ChartOptions<'doughnut'> = {
     responsive: true,
     plugins: {
       legend: {
         display: legends,
-        position: "bottom",
+        position: 'bottom',
         labels: {
           padding: 40,
         },
@@ -161,7 +161,7 @@ export const PieChart = ({
   backgroundColor,
   offset,
 }: PieChartProps) => {
-  const pieChartData: ChartData<"pie", number[], string> = {
+  const pieChartData: ChartData<'pie', number[], string> = {
     labels,
     datasets: [
       {
@@ -173,7 +173,7 @@ export const PieChart = ({
     ],
   };
 
-  const pieChartOptions: ChartOptions<"pie"> = {
+  const pieChartOptions: ChartOptions<'pie'> = {
     responsive: true,
     plugins: {
       legend: {
@@ -200,7 +200,7 @@ export const LineChart = ({
   borderColor,
   labels = months,
 }: LineChartProps) => {
-  const options: ChartOptions<"line"> = {
+  const options: ChartOptions<'line'> = {
     responsive: true,
     plugins: {
       legend: {
@@ -226,7 +226,7 @@ export const LineChart = ({
     },
   };
 
-  const lineChartData: ChartData<"line", number[], string> = {
+  const lineChartData: ChartData<'line', number[], string> = {
     labels,
     datasets: [
       {

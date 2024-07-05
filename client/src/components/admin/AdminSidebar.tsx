@@ -1,21 +1,21 @@
-import { useEffect, useState } from "react";
-import { AiFillFileText } from "react-icons/ai";
+import { useEffect, useState } from 'react';
+import { AiFillFileText } from 'react-icons/ai';
 import {
   FaChartBar,
   FaChartLine,
   FaChartPie,
   FaGamepad,
   FaStopwatch,
-} from "react-icons/fa";
-import { HiMenuAlt4 } from "react-icons/hi";
-import { IoIosPeople } from "react-icons/io";
+} from 'react-icons/fa';
+import { HiMenuAlt4 } from 'react-icons/hi';
+import { IoIosPeople } from 'react-icons/io';
 import {
   RiCoupon3Fill,
   RiDashboardFill,
   RiShoppingBag3Fill,
-} from "react-icons/ri";
-import { Link, Location, useLocation } from "react-router-dom";
-import { IconType } from "react-icons";
+} from 'react-icons/ri';
+import { Link, Location, useLocation } from 'react-router-dom';
+import { IconType } from 'react-icons';
 
 const AdminSidebar = () => {
   const location = useLocation();
@@ -30,10 +30,10 @@ const AdminSidebar = () => {
   };
 
   useEffect(() => {
-    window.addEventListener("resize", resizeHandler);
+    window.addEventListener('resize', resizeHandler);
 
     return () => {
-      window.removeEventListener("resize", resizeHandler);
+      window.removeEventListener('resize', resizeHandler);
     };
   }, []);
 
@@ -49,17 +49,17 @@ const AdminSidebar = () => {
         style={
           phoneActive
             ? {
-                width: "20rem",
-                height: "100vh",
-                position: "fixed",
+                width: '20rem',
+                height: '100vh',
+                position: 'fixed',
                 top: 0,
-                left: showModal ? "0" : "-20rem",
-                transition: "all 0.5s",
+                left: showModal ? '0' : '-20rem',
+                transition: 'all 0.5s',
               }
             : {}
         }
       >
-        <h2>Logo.</h2>
+        <h2>TrendMart</h2>
         <DivOne location={location} />
         <DivTwo location={location} />
         <DivThree location={location} />
@@ -168,14 +168,14 @@ const Li = ({ url, text, location, Icon }: LiProps) => (
   <li
     style={{
       backgroundColor: location.pathname.includes(url)
-        ? "rgba(0,115,255,0.1)"
-        : "white",
+        ? 'rgba(0,115,255,0.1)'
+        : 'white',
     }}
   >
     <Link
       to={url}
       style={{
-        color: location.pathname.includes(url) ? "rgb(0,115,255)" : "black",
+        color: location.pathname.includes(url) ? 'rgb(0,115,255)' : 'black',
       }}
     >
       <Icon />

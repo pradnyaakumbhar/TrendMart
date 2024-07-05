@@ -1,5 +1,5 @@
-import { Column } from "react-table";
-import TableHOC from "./TableHOC";
+import { Column } from 'react-table';
+import TableHOC from './TableHOC';
 
 interface DataType {
   _id: string;
@@ -11,24 +11,24 @@ interface DataType {
 
 const columns: Column<DataType>[] = [
   {
-    Header: "Id",
-    accessor: "_id",
+    Header: 'Id',
+    accessor: '_id',
   },
   {
-    Header: "Quantity",
-    accessor: "quantity",
+    Header: 'Quantity',
+    accessor: 'quantity',
   },
   {
-    Header: "Discount",
-    accessor: "discount",
+    Header: 'Discount',
+    accessor: 'discount',
   },
   {
-    Header: "Amount",
-    accessor: "amount",
+    Header: 'Amount',
+    accessor: 'amount',
   },
   {
-    Header: "Status",
-    accessor: "status",
+    Header: 'Status',
+    accessor: 'status',
   },
 ];
 
@@ -36,8 +36,8 @@ const DashboardTable = ({ data = [] }: { data: DataType[] }) => {
   return TableHOC<DataType>(
     columns,
     data,
-    "transaction-box",
-    "Top Transaction"
+    'transaction-box',
+    'Top Transaction'
   )();
 };
 

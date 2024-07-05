@@ -1,26 +1,52 @@
+import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Skeleton } from '../components/Loader';
 import ProductCard from '../components/ProductCard';
+import { useLatestProductsQuery } from '../redux/api/productAPI';
+import { addToCart } from '../redux/reducer/cartReducer';
+import { CartItem } from '../types/types';
 
 const Home = () => {
-  const addToCartHandler = () => {};
+  const { data, isLoading, isError } = useLatestProductsQuery('');
+
+  const dispatch = useDispatch();
+
+  const addToCartHandler = (cartItem: CartItem) => {
+    if (cartItem.stock < 1) return toast.error('Out of Stock');
+    dispatch(addToCart(cartItem));
+    toast.success('Added to cart');
+  };
+
+  if (isError) toast.error('Cannot Fetch the Products');
+
   return (
     <div className="home">
-      <section>{/* <img src="../assets/cover.jpg" alt="grfbik" /> */}</section>
+      <section></section>
+
       <h1>
         Latest Products
-        <Link to={'/search'} className="findMore">
+        <Link to="/search" className="findmore">
           More
         </Link>
       </h1>
+
       <main>
-        <ProductCard
-          productId="rgqe"
-          name="macbook"
-          price={3758}
-          stock={10}
-          handler={addToCartHandler}
-          photo="https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=2020&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        />
+        {isLoading ? (
+          <Skeleton width="80vw" />
+        ) : (
+          data?.products.map((i) => (
+            <ProductCard
+              key={i._id}
+              productId={i._id}
+              name={i.name}
+              price={i.price}
+              stock={i.stock}
+              handler={addToCartHandler}
+              photo={i.photo}
+            />
+          ))
+        )}
       </main>
     </div>
   );

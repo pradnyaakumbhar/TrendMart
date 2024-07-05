@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import {
   FaSearch,
   FaShoppingBag,
@@ -6,13 +7,23 @@ import {
   FaSignOutAlt,
   FaUser,
 } from 'react-icons/fa';
+import { User } from '../types/types';
 import { Link } from 'react-router-dom';
-
-const user = { _id: 'hgvk', role: 'admin' };
-const Navbar = () => {
+import { auth } from '../firebase';
+import { signOut } from 'firebase/auth';
+interface PropsType {
+  user: User | null;
+}
+const Navbar = ({ user }: PropsType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const handleLogout = () => {
-    setIsOpen(false);
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      toast.success('Sign Out Successfully');
+      setIsOpen(false);
+    } catch (error) {
+      toast.error('Sign Out Fail');
+    }
   };
   return (
     <nav className="navbar">
@@ -42,7 +53,7 @@ const Navbar = () => {
               <Link to={'/orders'} onClick={() => setIsOpen(false)}>
                 Orders
               </Link>
-              <button>
+              <button onClick={handleLogout}>
                 <FaSignOutAlt />
               </button>
             </div>

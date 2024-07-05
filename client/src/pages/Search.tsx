@@ -1,15 +1,62 @@
 import { useState } from 'react';
 import ProductCard from '../components/ProductCard';
+import {
+  useCategoriesQuery,
+  useSearchProductsQuery,
+} from '../redux/api/productAPI';
+import { CustomError } from '../types/apiTypes';
+import toast from 'react-hot-toast';
+import { Skeleton } from '../components/Loader';
+import { CartItem } from '../types/types';
+import { addToCart } from '../redux/reducer/cartReducer';
+import { useDispatch } from 'react-redux';
 
 const Search = () => {
+  const {
+    data: categoriesResponse,
+    isLoading: loadingCategories,
+    isError,
+    error,
+  } = useCategoriesQuery('');
+
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState('');
-  const [maxPrice, setMaxPrice] = useState(1000000);
+  const [maxPrice, setMaxPrice] = useState(100000);
   const [category, setCategory] = useState('');
   const [page, setPage] = useState(1);
-  const handleAddToCart = () => {};
-  const isNextPage = page > 1;
-  const isPrevPage = page < 4;
+
+  const {
+    isLoading: productLoading,
+    data: searchedData,
+    isError: productIsError,
+    error: productError,
+  } = useSearchProductsQuery({
+    search,
+    sort,
+    category,
+    page,
+    price: maxPrice,
+  });
+
+  const dispatch = useDispatch();
+
+  const addToCartHandler = (cartItem: CartItem) => {
+    if (cartItem.stock < 1) return toast.error('Out of Stock');
+    dispatch(addToCart(cartItem));
+    toast.success('Added to cart');
+  };
+
+  const isPrevPage = page > 1;
+  const isNextPage = page < 4;
+
+  if (isError) {
+    const err = error as CustomError;
+    toast.error(err.data.message);
+  }
+  if (productIsError) {
+    const err = productError as CustomError;
+    toast.error(err.data.message);
+  }
   return (
     <div className="product-search-page">
       <aside>
@@ -70,8 +117,8 @@ const Search = () => {
                 name={i.name}
                 price={i.price}
                 stock={i.stock}
-                handler={handleAddToCart}
-                photos={i.photos}
+                handler={addToCartHandler}
+                photo={i.photo}
               />
             ))}
           </div>
